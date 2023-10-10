@@ -32,7 +32,7 @@ public abstract class GitTimestampSource implements ValueSource<String, ValueSou
             spec.setStandardOutput(out);
         });
         long timestamp = Long.parseLong(out.toString().trim()) * 1000;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         return dateFormat.format(new Date(timestamp));
     }
