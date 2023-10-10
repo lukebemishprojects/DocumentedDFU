@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group = 'dev.lukebemish'
+
+def dfu_version = '6.0.8'
+
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
