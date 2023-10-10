@@ -2,7 +2,7 @@
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
-!**/src/test/**/build/
+!**/src/patches/**/build/
 
 ### IntelliJ IDEA ###
 *.iws
@@ -10,7 +10,7 @@ build/
 *.ipr
 out/
 !**/src/main/**/out/
-!**/src/test/**/out/
+!**/src/patches/**/out/
 
 ### Eclipse ###
 .apt_generated
@@ -22,7 +22,7 @@ out/
 .sts4-cache
 bin/
 !**/src/main/**/bin/
-!**/src/test/**/bin/
+!**/src/patches/**/bin/
 
 ### NetBeans ###
 /nbproject/private/
@@ -39,4 +39,5 @@ bin/
 
 .idea/
 
-test/src/
+/src/modified
+/src/clean

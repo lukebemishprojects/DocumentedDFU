@@ -1,0 +1,3 @@
+import dev.lukebemish.documenteddfu.utils.DocumentedDFUExtension
+
+project.extensions.create('documentedDfu', DocumentedDFUExtension.class)

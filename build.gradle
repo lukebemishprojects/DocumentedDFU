@@ -1,0 +1,89 @@
+plugins {
+    id 'java'
+    id 'dev.lukebemish.documenteddfu.utils'
+
+    id 'dev.lukebemish.docpatcher' version '0.1.1'
+}
+
+group = 'dev.lukebemish'
+
+def dfuVersion = '6.0.8'
+
+version = dfuVersion + '-' + documentedDfu.gitTimestamp.get()
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Mojang'
+        url = 'https://libraries.minecraft.net'
+    }
+}
+
+configurations {
+    originalSources
+    original
+    originalTransitive
+    compileOnly.extendsFrom originalTransitive
+}
+
+dependencies {
+    originalSources("com.mojang:datafixerupper:$dfuVersion:sources") {
+        transitive = false
+    }
+    original("com.mojang:datafixerupper:$dfuVersion") {
+        transitive = false
+    }
+    originalTransitive("com.mojang:datafixerupper:$dfuVersion") {
+        transitive = true
+        attributes {
+            attribute Usage.USAGE_ATTRIBUTE, project.objects.named(Usage, Usage.JAVA_RUNTIME)
+        }
+    }
+}
+
+docPatcher.diff {
+    clean = 'clean'
+    modified = 'modified'
+    patches = 'patches'
+    output = 'output'
+    outputSourceSet.set sourceSets.main
+    outputDirectory.set file("build/patched")
+    source = configurations.originalSources
+    missedDirectory.set file("build/missed")
+}
+
+tasks.register('setup') {
+    group = 'setup'
+    dependsOn 'docPatcherSetupModifiedApplyPatches'
+}
+
+tasks.register('generatePatches') {
+    group = 'setup'
+    dependsOn tasks.docPatcherApplyPatchesGeneratePatches
+}
+
+tasks.register('extractManifest', Copy) {
+    dependsOn configurations.original
+    from zipTree(configurations.original.singleFile)
+    into 'build/manifest'
+    include 'META-INF/MANIFEST.MF'
+}
+
+tasks.named('compileJava') {
+    dependsOn tasks.docPatcherApplyOutputApplyPatches
+}
+
+tasks.named('jar', Jar) {
+    dependsOn configurations.original
+    dependsOn tasks.extractManifest
+    from(zipTree(configurations.original.singleFile))
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    manifest {
+        from 'build/manifest/META-INF/MANIFEST.MF'
+        attributes 'Documented-DFU-Version': project.version
+    }
+}
