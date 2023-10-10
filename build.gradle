@@ -1,7 +1,7 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'maven-publish'
     id 'dev.lukebemish.documenteddfu.utils'
-
     id 'dev.lukebemish.docpatcher' version '0.1.1'
 }
 
@@ -13,6 +13,7 @@ version = dfuVersion + '-' + documentedDfu.gitTimestamp.get()
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(17)
+    withSourcesJar()
 }
 
 repositories {
@@ -27,7 +28,29 @@ configurations {
     originalSources
     original
     originalTransitive
-    compileOnly.extendsFrom originalTransitive
+    originalTransitiveRuntime
+    compileOnly.extendsFrom originalTransitiveRuntime
+
+    apiPublishing
+    apiElements.extendsFrom apiPublishing
+    runtimePublishing
+    runtimeElements.extendsFrom runtimePublishing
+}
+
+configurations.apiPublishing.defaultDependencies { dependencySet ->
+    configurations.originalTransitive.resolvedConfiguration.firstLevelModuleDependencies.each {
+        it.children.each { child ->
+            dependencySet.add(project.dependencies.create(child.module.toString()))
+        }
+    }
+}
+
+configurations.runtimePublishing.defaultDependencies { dependencySet ->
+    configurations.originalTransitiveRuntime.resolvedConfiguration.firstLevelModuleDependencies.each {
+        it.children.each { child ->
+            dependencySet.add(project.dependencies.create(child.module.toString()))
+        }
+    }
 }
 
 dependencies {
@@ -37,10 +60,14 @@ dependencies {
     original("com.mojang:datafixerupper:$dfuVersion") {
         transitive = false
     }
-    originalTransitive("com.mojang:datafixerupper:$dfuVersion") {
-        transitive = true
+    originalTransitiveRuntime("com.mojang:datafixerupper:$dfuVersion") {
         attributes {
             attribute Usage.USAGE_ATTRIBUTE, project.objects.named(Usage, Usage.JAVA_RUNTIME)
+        }
+    }
+    originalTransitive("com.mojang:datafixerupper:$dfuVersion") {
+        attributes {
+            attribute Usage.USAGE_ATTRIBUTE, project.objects.named(Usage, Usage.JAVA_API)
         }
     }
 }
@@ -85,5 +112,41 @@ tasks.named('jar', Jar) {
     manifest {
         from 'build/manifest/META-INF/MANIFEST.MF'
         attributes 'Documented-DFU-Version': project.version
+        attributes 'Documented-DFU-Commit': documentedDfu.gitHash.get()
+    }
+}
+
+tasks.named('sourcesJar', Jar) {
+    dependsOn tasks.docPatcherApplyOutputApplyPatches
+    def licenseFile = project.file('LICENSE')
+    inputs.file licenseFile
+    filesMatching('LICENSE') {
+        expand 'license': licenseFile.text
+    }
+}
+
+processResources {
+    def licenseFile = project.file('LICENSE')
+    inputs.file licenseFile
+    filesMatching('LICENSE') {
+        expand 'license': licenseFile.text
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = 'Maven'
+            url = System.getenv('MAVEN_URL')
+            credentials {
+                username = System.getenv('MAVEN_USER')
+                password = System.getenv('MAVEN_PASSWORD')
+            }
+        }
     }
 }

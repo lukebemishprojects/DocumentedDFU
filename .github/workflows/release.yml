@@ -1,0 +1,24 @@
+name: Release
+concurrency: ci-${{ github.ref }}
+on:
+    workflow_dispatch:
+jobs:
+    build:
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - uses: fregante/setup-git-user@v2
+            - uses: gradle/gradle-build-action@v2
+              with:
+                  arguments: build
+                  cache-read-only: ${{ !startsWith(github.ref, 'refs/heads/1.') }}
+            - uses: gradle/gradle-build-action@v2
+              with:
+                  arguments: publish
+                  cache-read-only: ${{ !startsWith(github.ref, 'refs/heads/1.') }}
+              env:
+                  MAVEN_PASSWORD: ${{ secrets.RELEASE_MAVEN_PASSWORD }}
+                  MAVEN_USER: github
+                  MAVEN_URL: https://maven.lukebemish.dev/releases/
