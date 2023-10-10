@@ -10,6 +10,10 @@ jobs:
               with:
                   fetch-depth: 0
             - uses: fregante/setup-git-user@v2
+            - uses: actions/setup-java@v3
+              with:
+                  distribution: "temurin"
+                  java-version: 17
             - uses: gradle/gradle-build-action@v2
               with:
                   arguments: build
