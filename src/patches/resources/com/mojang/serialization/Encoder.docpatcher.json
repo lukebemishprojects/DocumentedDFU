@@ -1,0 +1,30 @@
+{
+  "clazz": {
+    "doc": "Encodes objects to a serialized form",
+    "tags": {
+      "param": []
+    },
+    "typeParameters": [
+      "the type of object to encode"
+    ]
+  },
+  "methods": {
+    "encode(LA;Lcom/mojang/serialization/DynamicOps;LT;)Lcom/mojang/serialization/DataResult;": {
+      "doc": "Encodes an object to a serialized form",
+      "tags": {
+        "param": [],
+        "return": [
+          "a {@link DataResult} containing the serialized form of the object, or an error if the object could not be serialized"
+        ]
+      },
+      "parameters": [
+        "the object to encode",
+        "a {@link DynamicOps} for the target serialized format",
+        "existing data that the encoded object should be added to"
+      ],
+      "typeParameters": [
+        "the type to serialize to"
+      ]
+    }
+  }
+}
