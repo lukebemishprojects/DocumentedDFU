@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'dev.lukebemish.documenteddfu.utils'
-    id 'dev.lukebemish.docpatcher' version '0.1.3'
+    id 'dev.lukebemish.docpatcher' version '0.2.0'
 }
 
 group = 'dev.lukebemish'
@@ -26,6 +26,9 @@ sourceSets {
         java {
             compileClasspath += sourceSets.main.compileClasspath
         }
+    }
+    doclet {
+        java {}
     }
 }
 
@@ -94,6 +97,8 @@ docPatcher.diff {
     outputDirectory.set file("build/patched")
     source = configurations.originalSources
     missedDirectory.set file("build/missed")
+    originalTag = 'mojang'
+    sanitizeOriginal = true
 }
 
 tasks.register('setup') {
@@ -115,6 +120,18 @@ tasks.register('extractManifest', Copy) {
 
 tasks.named('compileJava') {
     dependsOn tasks.docPatcherApplyOutputApplyPatches
+}
+
+tasks.named('javadoc', Javadoc) {
+    dependsOn tasks.docPatcherApplyOutputApplyPatches
+    dependsOn tasks.compileDocletJava
+    inputs.files(sourceSets.doclet.output.classesDirs)
+    options {
+        def tagList = ['dev.lukebemish.documenteddfu.javadoc.MojangTaglet']
+
+        options.setTaglets(tagList)
+        options.addStringOption "tagletpath", sourceSets.doclet.output.classesDirs.singleFile.path
+    }
 }
 
 tasks.named('jar', Jar) {
