@@ -34,6 +34,12 @@ jobs:
               with:
                   arguments: build javadoc
                   cache-read-only: ${{ !startsWith(github.ref, 'refs/heads/1.') }}
+            - uses: actions/configure-pages@v3
+            - uses: actions/upload-pages-artifact@v2
+              with:
+                  path: 'build/docs/javadoc'
+            - id: deployment
+              uses: actions/deploy-pages@v2
             - uses: gradle/gradle-build-action@v2
               with:
                   arguments: publish
@@ -42,9 +48,3 @@ jobs:
                   MAVEN_PASSWORD: ${{ secrets.RELEASE_MAVEN_PASSWORD }}
                   MAVEN_USER: github
                   MAVEN_URL: https://maven.lukebemish.dev/releases/
-            - uses: actions/configure-pages@v3
-            - uses: actions/upload-pages-artifact@v2
-              with:
-                  path: 'build/docs/javadoc'
-            - id: deployment
-              uses: actions/deploy-pages@v2
