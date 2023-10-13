@@ -1,9 +1,6 @@
 {
   "clazz": {
     "doc": "Decodes objects from a serialized form.",
-    "tags": {
-      "param": []
-    },
     "typeParameters": [
       "the type of object to decode"
     ]
@@ -12,9 +9,6 @@
     "Terminal": {
       "clazz": {
         "doc": "Can decode an object from a serialized form, but does not return any remaining serialized data.",
-        "tags": {
-          "param": []
-        },
         "typeParameters": [
           "the type of object to decode"
         ]
@@ -23,7 +17,6 @@
         "decode(Lcom/mojang/serialization/DynamicOps;LT;)Lcom/mojang/serialization/DataResult;": {
           "doc": "Decodes an object from a serialized form, but does not return any remaining serialized data.",
           "tags": {
-            "param": [],
             "return": [
               "a {@link DataResult} containing the decoded object, or an error if the object could not be decoded"
             ]
@@ -51,7 +44,6 @@
     "decode(Lcom/mojang/serialization/DynamicOps;LT;)Lcom/mojang/serialization/DataResult;": {
       "doc": "Decodes an object from a serialized form, returning any remaining serialized data.",
       "tags": {
-        "param": [],
         "return": [
           "a {@link DataResult} containing the decoded object and any remaining serialized data, or an error if the object could not be decoded"
         ]
@@ -67,7 +59,6 @@
     "parse(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
       "doc": "Parse a serialized form as an instance of this decoder's type.",
       "tags": {
-        "param": [],
         "return": [
           "a {@link DataResult} containing the parsed object, or an error if the object could not be parsed"
         ]
@@ -82,7 +73,6 @@
     "decode(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
       "doc": "Decode an object from a serialized form, returning any remaining serialized data.",
       "tags": {
-        "param": [],
         "return": [
           "a {@link DataResult} containing the decoded object and any remaining serialized data, or an error if the object could not be decoded"
         ]

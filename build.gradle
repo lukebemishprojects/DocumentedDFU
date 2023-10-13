@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'dev.lukebemish.documenteddfu.utils'
-    id 'dev.lukebemish.docpatcher' version '0.2.0'
+    id 'dev.lukebemish.docpatcher' version '0.2.6'
 }
 
 group = 'dev.lukebemish'
@@ -96,8 +96,9 @@ docPatcher.diff {
     outputSourceSet.set sourceSets.main
     outputDirectory.set file("build/patched")
     source = configurations.originalSources
+    classpath = configurations.originalTransitiveRuntime
     missedDirectory.set file("build/missed")
-    originalTag = 'mojang'
+    originalTag = 'mojangDocs'
     sanitizeOriginal = true
 }
 
@@ -122,15 +123,33 @@ tasks.named('compileJava') {
     dependsOn tasks.docPatcherApplyOutputApplyPatches
 }
 
+def javadocMap = [
+    'com.google.guava:guava': {
+        "https://guava.dev/releases/${it}/api/docs/"
+    }
+]
+
 tasks.named('javadoc', Javadoc) {
     dependsOn tasks.docPatcherApplyOutputApplyPatches
     dependsOn tasks.compileDocletJava
     inputs.files(sourceSets.doclet.output.classesDirs)
+    dependsOn configurations.runtimePublishing
+    inputs.files(configurations.runtimePublishing)
     options {
         def tagList = ['dev.lukebemish.documenteddfu.javadoc.MojangTaglet']
 
-        options.setTaglets(tagList)
-        options.addStringOption "tagletpath", sourceSets.doclet.output.classesDirs.singleFile.path
+        setTaglets(tagList)
+        addStringOption "tagletpath", sourceSets.doclet.output.classesDirs.singleFile.path
+
+        options.links += configurations.runtimePublishing.resolvedConfiguration.firstLevelModuleDependencies.collect {
+            def template = javadocMap["${it.moduleGroup}:${it.moduleName}" as String]
+            if (template) {
+                return template(it.moduleVersion) as String
+            }
+            return "https://javadoc.io/doc/${it.moduleGroup}/${it.moduleName}/${it.moduleVersion}/" as String
+        }
+
+        options.docTitle =  "DataFixerUpper ${dfuVersion} API - Documentation ${documentedDfu.gitTimestamp.get()}"
     }
 }
 

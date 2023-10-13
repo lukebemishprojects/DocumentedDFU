@@ -1,9 +1,6 @@
 {
   "clazz": {
     "doc": "Encodes objects to a serialized form.",
-    "tags": {
-      "param": []
-    },
     "typeParameters": [
       "the type of object to encode"
     ]
@@ -12,7 +9,6 @@
     "comap(Ljava/util/function/Function;)Lcom/mojang/serialization/Encoder;": {
       "doc": "Transforms the type of this encoder using the given function.",
       "tags": {
-        "param": [],
         "return": [
           "a new encoder"
         ]
@@ -27,7 +23,6 @@
     "flatComap(Ljava/util/function/Function;)Lcom/mojang/serialization/Encoder;": {
       "doc": "Useful when the type to encode cannot always be converted to the type expected by this encoder.",
       "tags": {
-        "param": [],
         "return": [
           "a new encoder"
         ]
@@ -45,7 +40,6 @@
         "see": [
           "Codec#EMPTY"
         ],
-        "param": [],
         "return": [
           "a new {@link MapEncoder}"
         ]
@@ -60,7 +54,6 @@
         "see": [
           "Codec#error(String)"
         ],
-        "param": [],
         "return": [
           "a new encoder"
         ]
@@ -75,7 +68,6 @@
     "withLifecycle(Lcom/mojang/serialization/Lifecycle;)Lcom/mojang/serialization/Encoder;": {
       "doc": "Produces a new encoder with the given {@link Lifecycle}.",
       "tags": {
-        "param": [],
         "return": [
           "a new encoder"
         ]
@@ -85,17 +77,11 @@
       ]
     },
     "fieldOf(Ljava/lang/String;)Lcom/mojang/serialization/MapEncoder;": {
-      "doc": "",
-      "tags": {
-        "return": [
-          "a {@link MapEncoder} that encodes a single field with the given name using this encoder"
-        ]
-      }
+      "doc": "{@return a {@link MapEncoder} that encodes a single field with the given name using this encoder}"
     },
     "encodeStart(Lcom/mojang/serialization/DynamicOps;LA;)Lcom/mojang/serialization/DataResult;": {
       "doc": "Encode an object to a serialized form.",
       "tags": {
-        "param": [],
         "return": [
           "a {@link DataResult} containing the serialized form of the object, or an error if the object could not be serialized"
         ]
@@ -111,7 +97,6 @@
     "encode(LA;Lcom/mojang/serialization/DynamicOps;LT;)Lcom/mojang/serialization/DataResult;": {
       "doc": "Encodes an object to a serialized form, adding to an existing prefix.",
       "tags": {
-        "param": [],
         "return": [
           "a {@link DataResult} containing the serialized form of the object, or an error if the object could not be serialized"
         ]

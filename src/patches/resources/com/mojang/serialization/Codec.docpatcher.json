@@ -1,0 +1,185 @@
+{
+  "clazz": {
+    "doc": "A combined {@link Encoder} and {@link Decoder} which can convert objects to and from a serialized form.\nA codec is one of the core components of DFU's serialization API. Conceptually, a codec generally represents a series\nof two-way transformations going from the serialized form to the object type, going through any number of intermediate\nsteps.\n<p>\nCodecs are normally built through methods that combine or transform existing codecs. The {@link Codec} class\ncontains a number of built-in codecs for simple types, such as {@link #STRING}; while more complicated codecs\ncan be created by implementing the interface directly, it is often easier to use the built-in methods to combine or\ntransform existing codecs. Some common tools for building codecs include:\n<ul>\n    <li>{@link #listOf()} for decoding lists of a type</li>\n    <li>{@link #unboundedMap(Codec, Codec)} for building maps with arbitrary keys</li>\n    <li>{@link #unit(Object)} for codecs representing a unit, or singleton, type</li>\n    <li>{@link #pair(Codec, Codec)} for codecs which decode and encode both of two types to the same data</li>\n    <li>{@link #either(Codec, Codec)} for codecs which decode and encode either of two types to the same data</li>\n</ul>\nIf the serialized form of your data involves a known set of keys in a map, or if your data has a record-like structure,\nyou will likely want to look into {@link MapCodec} and {@link com.mojang.serialization.codecs.RecordCodecBuilder}. Codecs are quite versatile, and\na variety of other implementations exist.",
+    "tags": {
+      "see": [
+        "MapCodec",
+        "com.mojang.serialization.codecs.RecordCodecBuilder",
+        "KeyDispatchCodec"
+      ]
+    },
+    "typeParameters": [
+      "the type to encode and decode"
+    ]
+  },
+  "methods": {
+    "mapEither(Lcom/mojang/serialization/MapCodec;Lcom/mojang/serialization/MapCodec;)Lcom/mojang/serialization/MapCodec;": {
+      "doc": "Creates a new {@link MapCodec} that decodes and encodes either of two different types from the same data.\nIf the first {@link MapCodec} fails to decode, the second {@link MapCodec} will be used instead. If both fail to\ndecode, the error from the second codec will be returned, and the error from the first silently swallowed.",
+      "tags": {
+        "return": [
+          "a new {@link MapCodec} that decodes and encodes either of two different types from the same data"
+        ]
+      },
+      "parameters": [
+        "used to attempt decoding first, or to encode the left component",
+        "used to attempt decoding second, or to encode the right component"
+      ],
+      "typeParameters": [
+        "the type to attempt to decode first",
+        "the type to attempt to decode second"
+      ]
+    },
+    "of(Lcom/mojang/serialization/MapEncoder;Lcom/mojang/serialization/MapDecoder;)Lcom/mojang/serialization/MapCodec;": {
+      "doc": "Creates a new {@link MapCodec} by combining a {@link MapEncoder} and {@link MapDecoder}.",
+      "tags": {
+        "return": [
+          "a new map {@link MapCodec} with the behavior of the given encoder and decoder"
+        ]
+      },
+      "parameters": [
+        "used to encode objects to key-value pairs in a serialized form",
+        "used to decode objects from a serialized form"
+      ],
+      "typeParameters": [
+        "the type to encode and decode"
+      ]
+    },
+    "either(Lcom/mojang/serialization/Codec;Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;": {
+      "doc": "Creates a new codec that decodes and encodes either of two different types from the same data.\nIf the first codec fails to decode, the second codec will be used instead. If both codecs fail to decode, the\nerror from the second codec will be returned, and the error from the first silently swallowed.",
+      "tags": {
+        "return": [
+          "a new codec that decodes and encodes either of two different types from the same data"
+        ]
+      },
+      "parameters": [
+        "the codec used to attempt decoding first, or to encode the left component",
+        "the codec used to attempt decoding second, or to encode the right component"
+      ],
+      "typeParameters": [
+        "the type to attempt to decode first",
+        "the type to attempt to decode second"
+      ]
+    },
+    "compoundList(Lcom/mojang/serialization/Codec;Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;": {
+      "doc": "{@return a codec which represents a list of key-value pairs as a map-like structure in serialized form}",
+      "parameters": [
+        "the codec used to encode and decode the keys of the map. Will likely cause issues if the keys do not eventually serialize to strings",
+        "the codec used to encode and decode the values of the map"
+      ],
+      "typeParameters": [
+        "the type of the keys",
+        "the type of the values"
+      ]
+    },
+    "withLifecycle(Lcom/mojang/serialization/Lifecycle;)Lcom/mojang/serialization/Codec;": {
+      "doc": "Produces a new codec with the given {@link Lifecycle}.",
+      "tags": {
+        "return": [
+          "a new codec"
+        ]
+      },
+      "parameters": [
+        "the lifecycle to apply to the new codec"
+      ]
+    },
+    "deprecated(I)Lcom/mojang/serialization/Codec;": {
+      "doc": "{@return a version of this codec with a deprecated lifecycle}",
+      "tags": {
+        "see": [
+          "Lifecycle#deprecated(int)"
+        ]
+      }
+    },
+    "of(Lcom/mojang/serialization/MapEncoder;Lcom/mojang/serialization/MapDecoder;Ljava/util/function/Supplier;)Lcom/mojang/serialization/MapCodec;": {
+      "doc": "Creates a new {@link MapCodec} by combining a {@link MapEncoder} and {@link MapDecoder}, with a custom name.",
+      "tags": {
+        "return": [
+          "a new map {@link MapCodec} with the behavior of the given encoder and decoder"
+        ]
+      },
+      "parameters": [
+        "used to encode objects to key-value pairs in a serialized form",
+        "used to decode objects from a serialized form",
+        "the name of the codec when printed"
+      ],
+      "typeParameters": [
+        "the type to encode and decode"
+      ]
+    },
+    "stable()Lcom/mojang/serialization/Codec;": {
+      "doc": "{@return a version of this codec with the stable lifecycle}",
+      "tags": {
+        "see": [
+          "Lifecycle#stable()"
+        ]
+      }
+    },
+    "pair(Lcom/mojang/serialization/Codec;Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;": {
+      "doc": "Creates a new codec that decodes and encodes two different types from the same data, in sequence.\nNote that while decoding, the second codec only sees data not consumed by the first codec; if the first codec\nconsumes all the provided data, the second codec will be given an empty input. This works particularly well with\ncodecs constructed with {@link MapCodec#codec()}, as different codecs can consume different keys.",
+      "tags": {
+        "return": [
+          "a new codec that decodes and encodes two different types from the same data, in sequence"
+        ]
+      },
+      "parameters": [
+        "the codec used first on encoding and second on decoding",
+        "the codec used second on encoding and first on decoding"
+      ],
+      "typeParameters": [
+        "the type to decode first and encode second",
+        "the type to decode second and encode first"
+      ]
+    },
+    "list(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;": {
+      "doc": "{@return a new codec that decodes and encodes a list of a single type}",
+      "tags": {
+        "see": [
+          "#listOf()"
+        ]
+      },
+      "parameters": [
+        "the codec used to encode and decode the elements of the list"
+      ],
+      "typeParameters": [
+        "the type to decode and encode"
+      ]
+    },
+    "mapPair(Lcom/mojang/serialization/MapCodec;Lcom/mojang/serialization/MapCodec;)Lcom/mojang/serialization/MapCodec;": {
+      "doc": "Creates a new {@link MapCodec} that decodes and encodes two different types from the same data, in sequence.\nNote that unlike when using {@link #pair(Codec, Codec)}, no data is \"consumed\" by a {@link MapCodec}, so the\nsecond {@link MapCodec} will see the same input as the first.",
+      "tags": {
+        "return": [
+          "a new {@link MapCodec} that decodes and encodes two different types from the same data, in sequence"
+        ]
+      },
+      "parameters": [
+        "used to encode and decode the first component",
+        "used to encode and decode the second component"
+      ],
+      "typeParameters": [
+        "the type to decode and encode first",
+        "the type to decode and encode second"
+      ]
+    },
+    "of(Lcom/mojang/serialization/Encoder;Lcom/mojang/serialization/Decoder;Ljava/lang/String;)Lcom/mojang/serialization/Codec;": {
+      "doc": "{@return a new codec with the behavior of the given encoder and decoder, with a custom name}",
+      "parameters": [
+        "used to encode objects to a serialized form",
+        "used to decode objects from a serialized form",
+        "the name of the codec when printed"
+      ],
+      "typeParameters": [
+        "the type to encode and decode"
+      ]
+    },
+    "of(Lcom/mojang/serialization/Encoder;Lcom/mojang/serialization/Decoder;)Lcom/mojang/serialization/Codec;": {
+      "doc": "{@return a new codec with the behavior of the given encoder and decoder}",
+      "parameters": [
+        "used to encode objects to a serialized form",
+        "used to decode objects from a serialized form"
+      ],
+      "typeParameters": [
+        "the type to encode and decode"
+      ]
+    }
+  }
+}

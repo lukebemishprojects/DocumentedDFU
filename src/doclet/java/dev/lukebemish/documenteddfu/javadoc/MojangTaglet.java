@@ -30,7 +30,7 @@ public class MojangTaglet implements Taglet {
 
     @Override
     public String getName() {
-        return "mojang";
+        return "mojangDocs";
     }
 
     @Override
