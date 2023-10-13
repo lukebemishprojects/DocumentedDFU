@@ -5,6 +5,59 @@
       "the type of object to decode"
     ]
   },
+  "methods": {
+    "decode(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
+      "doc": "Decode an object from a serialized form, returning any remaining serialized data.",
+      "tags": {
+        "return": [
+          "a {@link DataResult} containing the decoded object and any remaining serialized data, or an error if the object could not be decoded"
+        ]
+      },
+      "parameters": [
+        "the {@link Dynamic}, containing serialized data, to decode"
+      ],
+      "typeParameters": [
+        "the type of the serialized form"
+      ]
+    },
+    "decode(Lcom/mojang/serialization/DynamicOps;LT;)Lcom/mojang/serialization/DataResult;": {
+      "doc": "Decodes an object from a serialized form, returning any remaining serialized data.",
+      "tags": {
+        "return": [
+          "a {@link DataResult} containing the decoded object and any remaining serialized data, or an error if the object could not be decoded"
+        ]
+      },
+      "parameters": [
+        "a {@link DynamicOps} for the serialized form",
+        "the serialized form to decode"
+      ],
+      "typeParameters": [
+        "the type of the serialized form"
+      ]
+    },
+    "parse(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
+      "doc": "Parse a serialized form as an instance of this decoder's type.",
+      "tags": {
+        "return": [
+          "a {@link DataResult} containing the parsed object, or an error if the object could not be parsed"
+        ]
+      },
+      "parameters": [
+        "the {@link Dynamic}, containing serialized data, to parse"
+      ],
+      "typeParameters": [
+        "the type of the serialized form"
+      ]
+    },
+    "terminal()Lcom/mojang/serialization/Decoder$Terminal;": {
+      "doc": "",
+      "tags": {
+        "return": [
+          "a {@link Terminal} that uses this decoder to decode an object from a serialized form, but does not return any remaining serialized data"
+        ]
+      }
+    }
+  },
   "innerClasses": {
     "Terminal": {
       "clazz": {
@@ -37,59 +90,6 @@
             ]
           }
         }
-      }
-    }
-  },
-  "methods": {
-    "decode(Lcom/mojang/serialization/DynamicOps;LT;)Lcom/mojang/serialization/DataResult;": {
-      "doc": "Decodes an object from a serialized form, returning any remaining serialized data.",
-      "tags": {
-        "return": [
-          "a {@link DataResult} containing the decoded object and any remaining serialized data, or an error if the object could not be decoded"
-        ]
-      },
-      "parameters": [
-        "a {@link DynamicOps} for the serialized form",
-        "the serialized form to decode"
-      ],
-      "typeParameters": [
-        "the type of the serialized form"
-      ]
-    },
-    "parse(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
-      "doc": "Parse a serialized form as an instance of this decoder's type.",
-      "tags": {
-        "return": [
-          "a {@link DataResult} containing the parsed object, or an error if the object could not be parsed"
-        ]
-      },
-      "parameters": [
-        "the {@link Dynamic}, containing serialized data, to parse"
-      ],
-      "typeParameters": [
-        "the type of the serialized form"
-      ]
-    },
-    "decode(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
-      "doc": "Decode an object from a serialized form, returning any remaining serialized data.",
-      "tags": {
-        "return": [
-          "a {@link DataResult} containing the decoded object and any remaining serialized data, or an error if the object could not be decoded"
-        ]
-      },
-      "parameters": [
-        "the {@link Dynamic}, containing serialized data, to decode"
-      ],
-      "typeParameters": [
-        "the type of the serialized form"
-      ]
-    },
-    "terminal()Lcom/mojang/serialization/Decoder$Terminal;": {
-      "doc": "",
-      "tags": {
-        "return": [
-          "a {@link Terminal} that uses this decoder to decode an object from a serialized form, but does not return any remaining serialized data"
-        ]
       }
     }
   }

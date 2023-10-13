@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'dev.lukebemish.documenteddfu.utils'
-    id 'dev.lukebemish.docpatcher' version '0.2.6'
+    id 'dev.lukebemish.docpatcher' version '0.3.3'
 }
 
 group = 'dev.lukebemish'
