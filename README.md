@@ -1,5 +1,5 @@
 # Documented DataFixerUpper
-[![Version](https://img.shields.io/badge/dynamic/xml?style=for-the-badge&color=blue&label=Latest%20Version&prefix=v&query=metadata%2F%2Flatest&url=https%3A%2F%2Fmaven.lukebemish.dev%2Freleases%2Fdev%2Flukebemish%2Fdocumenteddfu%2Fmaven-metadata.xml)](https://maven.lukebemish.dev/releases/dev/lukebemish/documenteddfu/)
+[![Version](https://img.shields.io/badge/dynamic/xml?style=for-the-badge&color=blue&label=Latest%20Release&prefix=v&query=metadata%2F%2Flatest&url=https%3A%2F%2Fmaven.lukebemish.dev%2Freleases%2Fdev%2Flukebemish%2Fdocumenteddfu%2Fmaven-metadata.xml)](https://maven.lukebemish.dev/releases/dev/lukebemish/documenteddfu/)
 [![Javadocs](https://img.shields.io/badge/javadocs-blue?style=for-the-badge)](https://projects.lukebemish.dev/DocumentedDFU/)
 
 This is a set of javadoc patches which add documentation to Mojang's [DataFixerUpper](https://github.com/Mojang/DataFixerUpper) library,
