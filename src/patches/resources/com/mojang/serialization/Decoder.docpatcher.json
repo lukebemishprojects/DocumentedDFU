@@ -6,6 +6,14 @@
     ]
   },
   "methods": {
+    "boxed()Lcom/mojang/serialization/Decoder$Boxed;": {
+      "doc": "{@return a boxed decoder that has the same behaviour as this decoder}",
+      "tags": {
+        "see": [
+          "Boxed"
+        ]
+      }
+    },
     "decode(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
       "doc": "Decode an object from a serialized form, returning any remaining serialized data.",
       "tags": {
@@ -35,6 +43,81 @@
         "the type of the serialized form"
       ]
     },
+    "error(Ljava/lang/String;)Lcom/mojang/serialization/Decoder;": {
+      "doc": "{@return a decoder which always errors}",
+      "parameters": [
+        "the error message to provide"
+      ],
+      "typeParameters": [
+        "the type of object to (fail to) decode"
+      ]
+    },
+    "fieldOf(Ljava/lang/String;)Lcom/mojang/serialization/MapDecoder;": {
+      "doc": "{@return a map decoder that decodes a single field with the given name using this decoder}",
+      "tags": {
+        "see": [
+          "MapDecoder"
+        ]
+      },
+      "parameters": [
+        "the name of the field to decode"
+      ]
+    },
+    "flatMap(Ljava/util/function/Function;)Lcom/mojang/serialization/Decoder;": {
+      "doc": "Transforms the type of this decoder using the given function, where the transformation may fail.",
+      "tags": {
+        "return": [
+          "a new decoder"
+        ]
+      },
+      "parameters": [
+        "a function to apply to the decoded object"
+      ],
+      "typeParameters": [
+        "the type of object for the new decoder to decode"
+      ]
+    },
+    "map(Ljava/util/function/Function;)Lcom/mojang/serialization/Decoder;": {
+      "doc": "Transforms the type of this decoder using the given function.",
+      "tags": {
+        "return": [
+          "a new decoder"
+        ]
+      },
+      "parameters": [
+        "a function to apply to the decoded object"
+      ],
+      "typeParameters": [
+        "the type of object for the new decoder to decode"
+      ]
+    },
+    "ofBoxed(Lcom/mojang/serialization/Decoder$Boxed;)Lcom/mojang/serialization/Decoder;": {
+      "doc": "{@return a decoder which decodes from a combined serialized form and format}",
+      "parameters": [
+        "a {@link Boxed} with the desired decoding logic"
+      ],
+      "typeParameters": [
+        "the type of object to decode"
+      ]
+    },
+    "ofSimple(Lcom/mojang/serialization/Decoder$Simple;)Lcom/mojang/serialization/Decoder;": {
+      "doc": "{@return a decoder which decodes from a combined serialized form and format,}",
+      "parameters": [
+        "a {@link Simple} with the desired decoding logic"
+      ],
+      "typeParameters": [
+        "the type of object to decode"
+      ]
+    },
+    "ofTerminal(Lcom/mojang/serialization/Decoder$Terminal;)Lcom/mojang/serialization/Decoder;": {
+      "doc": "{@return a decoder which throws out any remaining serialized data}",
+      "parameters": [
+        "a {@link Terminal} with the desired decoding logic"
+      ],
+      "typeParameters": [
+        "the type of object to decode"
+      ]
+    },
     "parse(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
       "doc": "Parse a serialized form as an instance of this decoder's type.",
       "tags": {
@@ -49,16 +132,108 @@
         "the type of the serialized form"
       ]
     },
-    "terminal()Lcom/mojang/serialization/Decoder$Terminal;": {
-      "doc": "",
+    "promotePartial(Ljava/util/function/Consumer;)Lcom/mojang/serialization/Decoder;": {
+      "doc": "{@return a new decoder that decodes the same object as this decoder, but also runs the given action on an error}",
+      "parameters": [
+        "an action to run on an error"
+      ]
+    },
+    "simple()Lcom/mojang/serialization/Decoder$Simple;": {
+      "doc": "{@return a simple decoder that has the same behaviour as this decoder, but discards any remaining serialized data}",
       "tags": {
-        "return": [
-          "a {@link Terminal} that uses this decoder to decode an object from a serialized form, but does not return any remaining serialized data"
+        "see": [
+          "Simple"
         ]
       }
+    },
+    "terminal()Lcom/mojang/serialization/Decoder$Terminal;": {
+      "doc": "{@return a terminal decoder that uses this decoder to decode an object from a serialized form, but does not return any remaining serialized data}",
+      "tags": {
+        "see": [
+          "Terminal"
+        ]
+      }
+    },
+    "unit(LA;)Lcom/mojang/serialization/MapDecoder;": {
+      "doc": "{@return a decoder which always decodes the given object}",
+      "parameters": [
+        "the object to decode"
+      ],
+      "typeParameters": [
+        "the type of object to decode"
+      ]
+    },
+    "unit(Ljava/util/function/Supplier;)Lcom/mojang/serialization/MapDecoder;": {
+      "doc": "{@return a decoder which always decodes an object taken from the given supplier}",
+      "parameters": [
+        "provides the object to decode"
+      ],
+      "typeParameters": [
+        "the type of object to decode"
+      ]
+    },
+    "withLifecycle(Lcom/mojang/serialization/Lifecycle;)Lcom/mojang/serialization/Decoder;": {
+      "doc": "{@return a decoder which decodes the same object as this decoder, but attaches the given lifecycle to the result}",
+      "parameters": [
+        "the {@link Lifecycle} of the decoded object"
+      ]
     }
   },
   "innerClasses": {
+    "Boxed": {
+      "clazz": {
+        "doc": "Like a {@link Decoder}, but deserializes from a {@link Dynamic}, which combines the serialized form and the {@link DynamicOps} for that form.",
+        "typeParameters": [
+          "the type of object to decode"
+        ]
+      },
+      "methods": {
+        "decode(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
+          "doc": "Decodes an object from a serialized form, returning any remaining serialized data.",
+          "tags": {
+            "return": [
+              "a {@link DataResult} containing the decoded object and any remaining serialized data, or an error if the object could not be decoded"
+            ]
+          },
+          "parameters": [
+            "the {@link Dynamic}, containing serialized data, to decode"
+          ],
+          "typeParameters": [
+            "the type of the serialized form"
+          ]
+        },
+        "decoder()Lcom/mojang/serialization/Decoder;": {
+          "doc": "{@return a new decoder with the logic of this object, combining the input format and serialized data}"
+        }
+      }
+    },
+    "Simple": {
+      "clazz": {
+        "doc": "Like a {@link Terminal}, but deserializes from a {@link Dynamic}, which combines the serialized form and the {@link DynamicOps} for that form.",
+        "typeParameters": [
+          "the type of object to decode"
+        ]
+      },
+      "methods": {
+        "decode(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/DataResult;": {
+          "doc": "Decodes an object from a serialized form",
+          "tags": {
+            "return": [
+              "a {@link DataResult} containing the decoded object, or an error if the object could not be decoded"
+            ]
+          },
+          "parameters": [
+            "the {@link Dynamic}, containing serialized data, to decode"
+          ],
+          "typeParameters": [
+            "the type of the serialized form"
+          ]
+        },
+        "decoder()Lcom/mojang/serialization/Decoder;": {
+          "doc": "{@return a new decoder with the logic of this object, discarding any remaining serialized data and combining the input format and serialized data}"
+        }
+      }
+    },
     "Terminal": {
       "clazz": {
         "doc": "Can decode an object from a serialized form, but does not return any remaining serialized data.",
@@ -83,12 +258,7 @@
           ]
         },
         "decoder()Lcom/mojang/serialization/Decoder;": {
-          "doc": "",
-          "tags": {
-            "return": [
-              "a {@link Decoder} corresponding to this {@link Terminal}, which discards any remaining serialized data"
-            ]
-          }
+          "doc": "{@return a new decoder with the logic of this object, discarding any remaining serialized data}"
         }
       }
     }

@@ -92,15 +92,16 @@
     "dispatch(Ljava/lang/String;Ljava/util/function/Function;Ljava/util/function/Function;)Lcom/mojang/serialization/Codec;": {
       "doc": [
         "Delegate codecs allow using the value of an initially decoded key to determine how to decode the rest of the input.",
-        "On encoding, the behaviour is similar, with the codec finding a codec from the supplied type, using that to encode",
-        "the value and using the receiver to encode the key. The codec this is called on is a codec decoding the type of",
-        "the key.",
+        "On encoding, the behaviour is similar, with the dispatch codec finding a codec from the supplied type, using that",
+        "to encode the value and using the receiver to encode the key. The reciever for this method is a codec decoding the",
+        "type of the key. Note that delegated-to codecs constructed from a {@link MapCodec.MapCodecCodec} have special",
+        "behaviour compared to other codecs; see {@link KeyDispatchCodec} for more information.",
         "<p>",
-        "<strong>Note the the second argument, which provides a codec given the key, is used on both encoding on decoding.",
+        "<strong>Note:</strong> the second argument, which provides a codec given the key, is used on both encoding on decoding.",
         "As on encoding the {@code type} function is first used to find a key, and the {@code codec} function only used",
         "after that, there is no guarantee that the capture of {@code ? super E} is the same in both cases! In other words,",
-        "this method is not inherently typesafe. Take case that whatever functions you provide only involve a single",
-        "capture of that generic for a given key; a common approach is using the codec itself as the key.</strong>"
+        "this method is not inherently typesafe. Take care that whatever functions you provide only involve a single",
+        "capture of that generic for a given key; a common approach is using the codec itself as the key."
       ],
       "tags": {
         "see": [
@@ -123,11 +124,8 @@
       "doc": [
         "An overload of {@link #dispatch(String, Function, Function)} which uses the string {@code \"type\"} as name of the key field.",
         "<p>",
-        "<strong>Note the the second argument, which provides a codec given the key, is used on both encoding on decoding.",
-        "As on encoding the {@code type} function is first used to find a key, and the {@code codec} function only used",
-        "after that, there is no guarantee that the capture of {@code ? super E} is the same in both cases! In other words,",
-        "this method is not inherently typesafe. Take case that whatever functions you provide only involve a single",
-        "capture of that generic for a given key; a common approach is using the codec itself as the key.</strong>"
+        "<strong>Note:</strong> dispatch codecs have several quirks it is good to be aware of. See",
+        "{@link #dispatch(String, Function, Function)} and {@link KeyDispatchCodec}."
       ],
       "tags": {
         "return": [
@@ -147,11 +145,8 @@
         "Similar to {@link #dispatch(String, Function, Function)} except that {@link MapCodec} is constructed instead of a",
         "{@link Codec}.",
         "<p>",
-        "<strong>Note the the second argument, which provides a codec given the key, is used on both encoding on decoding.",
-        "As on encoding the {@code type} function is first used to find a key, and the {@code codec} function only used",
-        "after that, there is no guarantee that the capture of {@code ? super E} is the same in both cases! In other words,",
-        "this method is not inherently typesafe. Take case that whatever functions you provide only involve a single",
-        "capture of that generic for a given key; a common approach is using the codec itself as the key.</strong>"
+        "<strong>Note:</strong> dispatch codecs have several quirks it is good to be aware of. See",
+        "{@link #dispatch(String, Function, Function)} and {@link KeyDispatchCodec}."
       ],
       "tags": {
         "return": [
@@ -172,11 +167,8 @@
         "Similar to {@link #dispatch(Function, Function)} except that {@link MapCodec} is constructed instead of a",
         "{@link Codec}.",
         "<p>",
-        "<strong>Note the the second argument, which provides a codec given the key, is used on both encoding on decoding.",
-        "As on encoding the {@code type} function is first used to find a key, and the {@code codec} function only used",
-        "after that, there is no guarantee that the capture of {@code ? super E} is the same in both cases! In other words,",
-        "this method is not inherently typesafe. Take case that whatever functions you provide only involve a single",
-        "capture of that generic for a given key; a common approach is using the codec itself as the key.</strong>"
+        "<strong>Note:</strong> dispatch codecs have several quirks it is good to be aware of. See",
+        "{@link #dispatch(String, Function, Function)} and {@link KeyDispatchCodec}."
       ],
       "tags": {
         "return": [
@@ -196,11 +188,8 @@
         "Similar to {@link #dispatch(Function, Function)} except that the decoding of the key is considered to be in the",
         "{@link Lifecycle#stable()} lifecycle.",
         "<p>",
-        "<strong>Note the the second argument, which provides a codec given the key, is used on both encoding on decoding.",
-        "As on encoding the {@code type} function is first used to find a key, and the {@code codec} function only used",
-        "after that, there is no guarantee that the capture of {@code ? super E} is the same in both cases! In other words,",
-        "this method is not inherently typesafe. Take case that whatever functions you provide only involve a single",
-        "capture of that generic for a given key; a common approach is using the codec itself as the key.</strong>"
+        "<strong>Note:</strong> dispatch codecs have several quirks it is good to be aware of. See",
+        "{@link #dispatch(String, Function, Function)} and {@link KeyDispatchCodec}."
       ],
       "tags": {
         "return": [
@@ -624,11 +613,8 @@
         "Creates a dispatch codec where each of the transforming functions produces a {@link DataResult} and is allowed to",
         "fail.",
         "<p>",
-        "<strong>Note the the second argument, which provides a codec given the key, is used on both encoding on decoding.",
-        "As on encoding the {@code type} function is first used to find a key, and the {@code codec} function only used",
-        "after that, there is no guarantee that the capture of {@code ? super E} is the same in both cases! In other words,",
-        "this method is not inherently typesafe. Take case that whatever functions you provide only involve a single",
-        "capture of that generic for a given key; a common approach is using the codec itself as the key.</strong>"
+        "<strong>Note:</strong> dispatch codecs have several quirks it is good to be aware of. See",
+        "{@link #dispatch(String, Function, Function)} and {@link KeyDispatchCodec}."
       ],
       "tags": {
         "see": [
