@@ -39,6 +39,14 @@
     ]
   },
   "methods": {
+    "checkRange(LN;LN;)Ljava/util/function/Function;": {
+      "doc": "",
+      "tags": {
+        "hidden": [
+          ""
+        ]
+      }
+    },
     "comapFlatMap(Ljava/util/function/Function;Ljava/util/function/Function;)Lcom/mojang/serialization/Codec;": {
       "doc": [
         "Similar to {@link #xmap(Function, Function)}, except that the forwards (decoding) transformation produces a",
