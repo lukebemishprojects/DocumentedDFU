@@ -14,29 +14,27 @@
       "The type to convert"
     ]
   },
+  "methods": {
+    "keys(Lcom/mojang/serialization/DynamicOps;)Ljava/util/stream/Stream;": {
+      "doc": [
+        "{@return a stream of keys this map codec may written or read}",
+        "This stream should contain any key that may be written or read, even ones that are optional.",
+        "The codec need",
+        "not read or write all of these keys on any given occasion, but all keys that might be read or written should",
+        "be included, as this stream is used to form the number-based indexing used with {@link DynamicOps#compressMaps()}.",
+        "<p>",
+        "<strong>Note:</strong> if a map codec writes a key that is not returned by this method, it will not work",
+        "correctly with a {@link DynamicOps} that has {@link DynamicOps#compressMaps()}."
+      ],
+      "parameters": [
+        "the dynamic ops instance"
+      ],
+      "typeParameters": [
+        "the data type to encode keys to or decode keys from"
+      ]
+    }
+  },
   "innerClasses": {
-    "Dependent": {
-      "methods": {
-        "keys(Lcom/mojang/serialization/DynamicOps;)Ljava/util/stream/Stream;": {
-          "doc": [
-            "{@return a stream of keys this map codec may written or read}",
-            "This stream should contain any key that may be written or read, even ones that are optional.",
-            "The codec need",
-            "not read or write all of these keys on any given occasion, but all keys that might be read or written should",
-            "be included, as this stream is used to form the number-based indexing used with {@link DynamicOps#compressMaps()}.",
-            "<p>",
-            "<strong>Note:</strong> if a map codec writes a key that is not returned by this method, it will not work",
-            "correctly with a {@link DynamicOps} that has {@link DynamicOps#compressMaps()}."
-          ],
-          "parameters": [
-            "the dynamic ops instance"
-          ],
-          "typeParameters": [
-            "the data type to encode keys to or decode keys from"
-          ]
-        }
-      }
-    },
     "MapCodecCodec": {
       "clazz": {
         "doc": [
