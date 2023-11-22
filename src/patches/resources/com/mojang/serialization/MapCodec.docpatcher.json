@@ -17,7 +17,7 @@
   "methods": {
     "keys(Lcom/mojang/serialization/DynamicOps;)Ljava/util/stream/Stream;": {
       "doc": [
-        "{@return a stream of keys this map codec may written or read}",
+        "{@return a stream of keys this map codec may write or read}",
         "This stream should contain any key that may be written or read, even ones that are optional.",
         "The codec need",
         "not read or write all of these keys on any given occasion, but all keys that might be read or written should",
@@ -47,8 +47,8 @@
           "<p>",
           "<strong>Note:</strong> when further modifying a {@link MapCodecCodec}, if you wish the \"map-ness\" of the codec to",
           "be maintained (which you may to retain special behaviour with {@link com.mojang.serialization.codecs.KeyDispatchCodec KeyDispatchCodec}",
-          "or the like) you will want to use {@link Codec#mapPair(MapCodec, MapCodec)}, {@link MapCodec#flatMap(Function)}, and company.",
-          "in place of {@link Codec#pair(Codec, Codec)}, {@link Codec#flatXmap(Function, Function)}, and company."
+          "or the like) you will want to use {@link Codec#mapPair(MapCodec, MapCodec)}, {@link MapCodec#flatXmap(Function, Function)}, and company.",
+          "in place of {@link Codec#pair(Codec, Codec)}, {@link Codec#flatXmap(Function, Function)} (Function, Function)}, and company."
         ],
         "typeParameters": [
           "the type to encode and decode"
