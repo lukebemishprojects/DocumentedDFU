@@ -29,4 +29,4 @@ configurations.configureEach {
 
 Clone this repository and run the `setup` task. This will create folders with `modified` and `clean` DFU versions, and
 apply the javadoc patches to the `modified` version. Make any modifications you would like to the `modified` version, and
-then run `generatePatches` to generate patches from the modified version.
+then run `generatePatches` to generate doc patches (JSON representations of added/changed docs) from the modified version.
