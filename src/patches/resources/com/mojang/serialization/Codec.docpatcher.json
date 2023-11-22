@@ -54,9 +54,9 @@
       ],
       "tags": {
         "see": [
-          "#xmap(Function, Function)",
+          "#flatComapMap(Function, Function)",
           "#flatXmap(Function, Function)",
-          "#flatComapMap(Function, Function)"
+          "#xmap(Function, Function)"
         ],
         "return": [
           "a new codec"
@@ -249,9 +249,9 @@
       ],
       "tags": {
         "see": [
-          "#xmap(Function, Function)",
+          "#comapFlatMap(Function, Function)",
           "#flatXmap(Function, Function)",
-          "#comapFlatMap(Function, Function)"
+          "#xmap(Function, Function)"
         ],
         "return": [
           "a new codec"
@@ -272,9 +272,9 @@
       ],
       "tags": {
         "see": [
-          "#xmap(Function, Function)",
           "#comapFlatMap(Function, Function)",
-          "#flatComapMap(Function, Function)"
+          "#flatComapMap(Function, Function)",
+          "#xmap(Function, Function)"
         ],
         "return": [
           "a new codec"
@@ -713,9 +713,9 @@
       "doc": "Creates a new codec by transforming the output of this codec during decoding, and the input while encoding.",
       "tags": {
         "see": [
-          "#flatXmap(Function, Function)",
           "#comapFlatMap(Function, Function)",
-          "#flatComapMap(Function, Function)"
+          "#flatComapMap(Function, Function)",
+          "#flatXmap(Function, Function)"
         ],
         "return": [
           "a new codec"

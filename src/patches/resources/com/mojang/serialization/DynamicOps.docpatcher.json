@@ -1,0 +1,12 @@
+{
+  "methods": {
+    "compressMaps()Z": {
+      "doc": [
+        "{@return whether this codec should compress bounded maps}",
+        "A codec that compresses bounded maps will encode a bounded map, as produced by a {@link MapCodec}, as a list of",
+        "values only.",
+        "The indices of the values in the list are the indices of the original keys in {@link MapCodec#keys(DynamicOps)}."
+      ]
+    }
+  }
+}

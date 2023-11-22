@@ -1,0 +1,61 @@
+{
+  "clazz": {
+    "doc": [
+      "A combined {@link MapEncoder} and {@link MapDecoder} which can convert objects to and from a series of fields.",
+      "A {@link MapCodec} consists of a fixed set of optional fields, can read those fields from a {@link MapLike} object,",
+      "and can write those fields to a {@link RecordBuilder} object. A {@link MapCodec} can be used to create a {@link Codec}",
+      "by calling {@link #codec()}; this codec will encode the map's fields to a map created by a {@link DynamicOps} instance.",
+      "unless the ops have {@link DynamicOps#compressMaps}, in which case the map will be encoded in a \"compressed\" map - in",
+      "other words, as a list of values, where the index of the value in the list corresponds to the index of the (potentially",
+      "optional) key in the stream returned by {@link #keys(DynamicOps)}. Codecs created by {@link #codec()} are occasionally",
+      "treated specially by other codec constructions."
+    ],
+    "typeParameters": [
+      "The type to convert"
+    ]
+  },
+  "innerClasses": {
+    "Dependent": {
+      "methods": {
+        "keys(Lcom/mojang/serialization/DynamicOps;)Ljava/util/stream/Stream;": {
+          "doc": [
+            "{@return a stream of keys this map codec may written or read}",
+            "This stream should contain any key that may be written or read, even ones that are optional.",
+            "The codec need",
+            "not read or write all of these keys on any given occasion, but all keys that might be read or written should",
+            "be included, as this stream is used to form the number-based indexing used with {@link DynamicOps#compressMaps()}.",
+            "<p>",
+            "<strong>Note:</strong> if a map codec writes a key that is not returned by this method, it will not work",
+            "correctly with a {@link DynamicOps} that has {@link DynamicOps#compressMaps()}."
+          ],
+          "parameters": [
+            "the dynamic ops instance"
+          ],
+          "typeParameters": [
+            "the data type to encode keys to or decode keys from"
+          ]
+        }
+      }
+    },
+    "MapCodecCodec": {
+      "clazz": {
+        "doc": [
+          "A {@link Codec} that encodes and decodes a {@link MapCodec}.",
+          "These codecs are occasionally treated specially by other codec constructions - notably,",
+          "{@link com.mojang.serialization.codecs.KeyDispatchCodec KeyDispatchCodec} will delegate to a {@link MapCodecCodec} differently than",
+          "Additionally, this codec returns a remainder when decoding instead of consuming the entire input - this means that",
+          "the codec can be used more easily alongside {@link Codec#pair(Codec, Codec)} than a \"normal\" codec, where the first",
+          "codec would consume the entire input.",
+          "<p>",
+          "<strong>Note:</strong> when further modifying a {@link MapCodecCodec}, if you wish the \"map-ness\" of the codec to",
+          "be maintained (which you may to retain special behaviour with {@link com.mojang.serialization.codecs.KeyDispatchCodec KeyDispatchCodec}",
+          "or the like) you will want to use {@link Codec#mapPair(MapCodec, MapCodec)}, {@link MapCodec#flatMap(Function)}, and company.",
+          "in place of {@link Codec#pair(Codec, Codec)}, {@link Codec#flatXmap(Function, Function)}, and company."
+        ],
+        "typeParameters": [
+          "the type to encode and decode"
+        ]
+      }
+    }
+  }
+}
