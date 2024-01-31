@@ -7,7 +7,7 @@ plugins {
 
 group = 'dev.lukebemish'
 
-def dfuVersion = '6.0.8'
+def dfuVersion = '6.0.12'
 
 version = dfuVersion + '-' + documentedDfu.gitTimestamp.get()
 
