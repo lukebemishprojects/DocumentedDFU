@@ -11,8 +11,15 @@ Add the maven repository to your `build.gradle` and configure gradle to replace 
 documented variant:
 ```groovy
 repositories {
-    maven {
-        url = 'https://maven.lukebemish.dev/releases/'
+    exclusiveContent {
+        forRepository {
+            maven {
+                url = uri("https://maven.lukebemish.dev/releases/")
+            }
+        }
+        filter {
+            includeModule("dev.lukebemish", "documenteddfu")
+        }
     }
 }
 
