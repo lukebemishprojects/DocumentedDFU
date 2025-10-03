@@ -39,19 +39,12 @@
       "clazz": {
         "doc": [
           "A {@link Codec} that encodes and decodes a {@link MapCodec}.",
-          "These codecs are occasionally treated specially by other codec constructions - notably,",
-          "{@link com.mojang.serialization.codecs.KeyDispatchCodec KeyDispatchCodec} will delegate to a {@link MapCodecCodec} differently than",
-          "Additionally, this codec returns a remainder when decoding instead of consuming the entire input - this means that",
+          "This codec returns a remainder when decoding instead of consuming the entire input - this means that",
           "the codec can be used more easily alongside {@link Codec#pair(Codec, Codec)} than a \"normal\" codec, where the first",
-          "codec would consume the entire input.",
-          "<p>",
-          "<strong>Note:</strong> when further modifying a {@link MapCodecCodec}, if you wish the \"map-ness\" of the codec to",
-          "be maintained (which you may to retain special behaviour with {@link com.mojang.serialization.codecs.KeyDispatchCodec KeyDispatchCodec}",
-          "or the like) you will want to use {@link Codec#mapPair(MapCodec, MapCodec)}, {@link MapCodec#flatXmap(Function, Function)}, and company.",
-          "in place of {@link Codec#pair(Codec, Codec)}, {@link Codec#flatXmap(Function, Function)} (Function, Function)}, and company."
+          "codec would consume the entire input."
         ],
-        "typeParameters": [
-          "the type to encode and decode"
+        "parameters": [
+          "the map codec to wrap"
         ]
       }
     }

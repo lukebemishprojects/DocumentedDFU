@@ -2,17 +2,17 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'dev.lukebemish.documenteddfu.utils'
-    id 'dev.lukebemish.docpatcher' version '0.3.7'
+    id 'dev.lukebemish.docpatcher' version '0.4.2'
 }
 
 group = 'dev.lukebemish'
 
-def dfuVersion = '6.0.12'
+def dfuVersion = '8.0.16'
 
 version = dfuVersion + '-' + documentedDfu.gitTimestamp.get()
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
     withSourcesJar()
 }
 

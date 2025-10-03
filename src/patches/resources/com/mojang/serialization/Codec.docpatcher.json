@@ -427,7 +427,7 @@
         "the type to encode and decode"
       ]
     },
-    "optionalField(Ljava/lang/String;Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/MapCodec;": {
+    "optionalField(Ljava/lang/String;Lcom/mojang/serialization/Codec;Z)Lcom/mojang/serialization/MapCodec;": {
       "doc": [
         "Creates a {@link MapCodec} representing a type as single field in a map-like structure when serialized which may",
         "be absent."
@@ -439,10 +439,11 @@
       },
       "parameters": [
         "the name of the field",
-        "the codec used to encode and decode the value of the field"
+        "the codec used to encode and decode the value of the field",
+        "whether a present-but-failing entry for the field should be ignored or its error propagated"
       ],
       "typeParameters": [
-        "the type of the field"
+        "the decoded type of the field"
       ]
     },
     "optionalFieldOf(Ljava/lang/String;)Lcom/mojang/serialization/MapCodec;": {
